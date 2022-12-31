@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error
 from pmdarima.metrics import smape
 import matploblib.pyplot as plt
 def forecast_one_step(model):
-    fc, conf_int = model.predict(n_periods= ,return_conf_int=True)
+    fc, conf_int = model.predict(n_periods= 1 ,return_conf_int=True)
     return(fc.tolist()[0],
           np.array(conf_int).tolist()[0])
 
@@ -46,7 +46,7 @@ def plot_results(y_train,y_test,forecastres,confidence_inter):
 def test_steps_forecast(y_train,y_test,model):
     forecastres=[]
     confidence_inter=[]
-    for new_ob in y_test:
+    for new_ob in y_test.values.reshape(-1,1):
         
         fc, conf= forecast_one_step(model)
         forecastres.append(fc)
